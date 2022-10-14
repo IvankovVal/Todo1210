@@ -15,7 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AddTaskDialog: DialogFragment() {
+class AddTaskDialog : DialogFragment() {
 
 
     override fun onCreateView(
@@ -23,7 +23,7 @@ class AddTaskDialog: DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.add_dialog,container,false)
+        val view: View = inflater.inflate(R.layout.add_dialog, container, false)
         val btn_save: Button = view.findViewById(R.id.btn_save)
         val btn_cancel: Button = view.findViewById(R.id.btn_cancel)
         val et_add_task: EditText = view.findViewById(R.id.et_add_task)
@@ -32,9 +32,9 @@ class AddTaskDialog: DialogFragment() {
         btn_cancel.setOnClickListener {
             dialog?.cancel()
         }
-
+        //Кнопка "сохранить"
         btn_save.setOnClickListener {
-            insertTask(name = et_add_task.text.toString(),status = false)
+            insertTask(name = et_add_task.text.toString(), status = false)
             dialog?.cancel()
 
         }
@@ -42,10 +42,12 @@ class AddTaskDialog: DialogFragment() {
 
         return view
     }
-//----------Функция добавления задачи---------------------------------------------------------------
-    fun insertTask(name: String?, status:Boolean) {
-        val callInsertTask: Call<ResponseBody?>? = ApiClient.instance?.api?.insertMyTask(name, status)
-        callInsertTask?.enqueue(object : Callback<ResponseBody?> {
+
+    //----------Функция добавления задачи---------------------------------------------------------------
+    fun insertTask(name: String?, status: Boolean) {
+        val callInsertTask: Call<ResponseBody?>? =
+            ApiClient.instance?.api?.insertMyTask(name, status)
+        callInsertTask?.enqueue(object : Callback<ResponseBody?> {    //здесь что-то не верно. Падает
             override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
                 Toast.makeText(context, "ЗАДАЧА ДОБАВЛЕНА", Toast.LENGTH_SHORT).show()
             }

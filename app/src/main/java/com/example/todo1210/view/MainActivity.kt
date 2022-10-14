@@ -17,7 +17,6 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListener {
 
     private var binding: ActivityMainBinding? = null
-    private var recyclerViewAdapter: RecyclerViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +32,6 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         }
         //---------- Радио группа---------------------------------------------------------------------------
         val rb_group: RadioGroup = findViewById(R.id.fild_for_btns)
-        var checkedRbtn: Int = rb_group.checkedRadioButtonId
         rb_group.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.btn_all -> getAllTasks()
@@ -75,10 +73,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
                 binding?.recyclerView?.adapter = loadTasks?.let { RecyclerViewAdapter(it,this@MainActivity) }
 
-                // binding?.recyclerView?.adapter = recyclerViewAdapter
-
                 Toast.makeText(this@MainActivity, "ЗАГРУЗКА", Toast.LENGTH_SHORT).show()
-
 
             }
 
@@ -106,10 +101,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
                 binding?.recyclerView?.adapter = loadTasks?.let { RecyclerViewAdapter(it,this@MainActivity) }
 
-                // binding?.recyclerView?.adapter = recyclerViewAdapter
-
                 Toast.makeText(this@MainActivity, "ЗАГРУЗКА", Toast.LENGTH_SHORT).show()
-
 
             }
 
@@ -136,8 +128,6 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
                 binding?.recyclerView?.layoutManager = LinearLayoutManager(this@MainActivity)
 
                 binding?.recyclerView?.adapter = loadTasks?.let { RecyclerViewAdapter(it,this@MainActivity) }
-
-                // binding?.recyclerView?.adapter = recyclerViewAdapter
 
                 Toast.makeText(this@MainActivity, "ЗАГРУЗКА", Toast.LENGTH_SHORT).show()
 
