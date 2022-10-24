@@ -9,7 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.todo1210.R
-import com.example.todo1210.viewmodel.ApiClient
+import com.example.todo1210.model.ApiClient
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback

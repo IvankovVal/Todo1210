@@ -4,16 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
 import com.example.todo1210.databinding.DetaileDialogBinding
-import com.example.todo1210.model.TaskModel
-import com.example.todo1210.viewmodel.ApiClient
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class DetailsDialog(var itemPosition: Int): BottomSheetDialogFragment() {
 

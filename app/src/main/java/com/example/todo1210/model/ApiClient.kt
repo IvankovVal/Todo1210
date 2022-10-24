@@ -1,4 +1,4 @@
-package com.example.todo1210.viewmodel
+package com.example.todo1210.model
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

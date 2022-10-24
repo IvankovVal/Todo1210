@@ -1,4 +1,4 @@
-package com.example.todo1210.viewmodel
+package com.example.todo1210.model
 
 import com.example.todo1210.model.TaskModel
 import okhttp3.ResponseBody
