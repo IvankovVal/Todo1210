@@ -2,11 +2,16 @@ package com.example.todo1210.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Adapter
 import android.widget.Button
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.todo1210.R
 import com.example.todo1210.model.ApiClient
 import com.example.todo1210.model.TaskModel
@@ -19,6 +24,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListener {
 
     private var binding: ActivityMainBinding? = null
+    var recyclerViewAdapter: RecyclerViewAdapter? = null
     private lateinit var taskViewModel: TaskViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,8 +33,12 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         setContentView(binding?.root)
 
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
+//
+//        val recyclerView:RecyclerView = findViewById(R.id.recyclerView)
+//        recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+//        recyclerView.adapter = recyclerViewAdapter//ошибка
 
-//---------- Кнопка добавления задания_________________
+        //---------- Кнопка добавления задания_________________
         val btn: Button = findViewById(R.id.btn)
         btn.setOnClickListener {
             val add_dialog = AddTaskDialog()
@@ -39,18 +49,26 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         val rb_group: RadioGroup = findViewById(R.id.fild_for_btns)
         rb_group.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.btn_all ->       binding?.recyclerView?.layoutManager = LinearLayoutManager(this@MainActivity)
- binding?.recyclerView?.adapter = taskViewModel.getAllTasks().let { RecyclerViewAdapter()//(this,this@MainActivity)
-
-                    R.id.btn_complete -> getActiveTasks()
-                R.id.btn_active -> getCompleteTasks()
+                R.id.btn_all -> getTaskList()
+                R.id.btn_complete -> getCompleteTasks()
+                R.id.btn_active -> getActiveTasks()
             }
         }
 
-
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+        recyclerView.adapter = recyclerViewAdapter//ошибка
     }
     //---------- Конец функции onCreate-------------------------------------------------------------
+    //---------- Получение списка "Все"--------------------------------------------------------------
+    fun getTaskList(){
+        taskViewModel.tasksList.observe(this, Observer {
+           recyclerViewAdapter = RecyclerViewAdapter(ArrayList(it), this)
+            // recyclerViewAdapter?.setListData(ArrayList(it))
+            recyclerViewAdapter?.notifyDataSetChanged()
 
+        })
+    }
     //---------- Клик по пункту списка-----------------------------------------------------------------
     override fun onItemClick(position: Int) {
         Toast.makeText(this, "Пункт $position нажат", Toast.LENGTH_LONG).show()

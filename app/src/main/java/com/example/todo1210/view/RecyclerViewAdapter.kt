@@ -12,12 +12,16 @@ import com.example.todo1210.model.TaskModel
 
 
 class RecyclerViewAdapter(
-    val tasks: List<TaskModel>,
+    var tasks: ArrayList<TaskModel>,
     private val listener: OnItemClickListener
     )
     : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
 
-    //val task = model.allTasks.value!![itemPosition]
+    fun setListData(data: ArrayList<TaskModel>) {
+        this.tasks = data
+    }
+
+    //model.allTasks.value!![itemPosition]
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             : ViewHolder {
@@ -77,5 +81,6 @@ class RecyclerViewAdapter(
     interface OnItemClickListener{
         fun onItemClick(position: Int)
         fun onCheckBoxClick(task: TaskModel,isChecked:Boolean)
+
     }
 }
