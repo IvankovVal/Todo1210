@@ -24,7 +24,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListener {
 
     private var binding: ActivityMainBinding? = null
-    var recyclerViewAdapter: RecyclerViewAdapter? = null
+    private lateinit var recyclerViewAdapter: RecyclerViewAdapter
     private lateinit var taskViewModel: TaskViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,15 +55,18 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
             }
         }
 
+       recyclerViewAdapter = RecyclerViewAdapter( this)
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+
         recyclerView.adapter = recyclerViewAdapter//ошибка
     }
     //---------- Конец функции onCreate-------------------------------------------------------------
     //---------- Получение списка "Все"--------------------------------------------------------------
     fun getTaskList(){
         taskViewModel.tasksList.observe(this, Observer {
-           recyclerViewAdapter = RecyclerViewAdapter(ArrayList(it), this)
+           recyclerViewAdapter.setListData(it)
+            //= RecyclerViewAdapter( this)
             // recyclerViewAdapter?.setListData(ArrayList(it))
             recyclerViewAdapter?.notifyDataSetChanged()
 
@@ -97,7 +100,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
                 binding?.recyclerView?.layoutManager = LinearLayoutManager(this@MainActivity)
 
-                binding?.recyclerView?.adapter = loadTasks?.let { RecyclerViewAdapter(it,this@MainActivity) }
+                binding?.recyclerView?.adapter = loadTasks?.let { RecyclerViewAdapter(this@MainActivity) }
 
                 Toast.makeText(this@MainActivity, "ЗАГРУЗКА", Toast.LENGTH_SHORT).show()
 
@@ -125,7 +128,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
                 binding?.recyclerView?.layoutManager = LinearLayoutManager(this@MainActivity)
 
-                binding?.recyclerView?.adapter = loadTasks?.let { RecyclerViewAdapter(it,this@MainActivity) }
+                binding?.recyclerView?.adapter = loadTasks?.let { RecyclerViewAdapter(this@MainActivity) }
 
                 Toast.makeText(this@MainActivity, "ЗАГРУЗКА", Toast.LENGTH_SHORT).show()
 

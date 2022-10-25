@@ -12,11 +12,11 @@ import com.example.todo1210.model.TaskModel
 
 
 class RecyclerViewAdapter(
-    var tasks: ArrayList<TaskModel>,
+//    var tasks: ArrayList<TaskModel>,
     private val listener: OnItemClickListener
     )
     : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
-
+    var tasks: ArrayList<TaskModel> = mutableListOf<TaskModel>() as ArrayList<TaskModel>
     fun setListData(data: ArrayList<TaskModel>) {
         this.tasks = data
     }
