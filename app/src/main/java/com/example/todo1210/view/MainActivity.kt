@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
            recyclerViewAdapter.setListData(it)
             //= RecyclerViewAdapter( this)
             // recyclerViewAdapter?.setListData(ArrayList(it))
-            recyclerViewAdapter?.notifyDataSetChanged()
+            recyclerViewAdapter.notifyDataSetChanged()
 
         })
     }
